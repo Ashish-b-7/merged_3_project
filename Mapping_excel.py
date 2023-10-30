@@ -3,7 +3,13 @@ from flask import Flask, render_template, request, send_file
 import pandas as pd
 import re   
 from flask import Blueprint, render_template
+import os
+
 mapping_app = Blueprint("mapping_app", __name__)
+
+if not os.path.exists('uploads'):
+    os.makedirs('uploads')
+
 UPLOAD_FOLDER = 'uploads'
 
 def process_files(normal_file_path, mapping_file_path, filename):
