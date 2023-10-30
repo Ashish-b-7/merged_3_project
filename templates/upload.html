@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flexi Hours</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Flexi Hours</h1>
+        <form method="POST" action="/flexi/process" enctype="multipart/form-data" class="mt-4">
+            <div class="form-group">
+                <label for="pdf_file">Upload PDF File:</label>
+                <input type="file" name="pdf_file" id="pdf_file" accept=".pdf" class="form-control-file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Process PDF</button>
+        </form>
+    </div>
+</body>
+</html>
