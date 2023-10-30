@@ -4,7 +4,12 @@ import pdfplumber
 import pandas as pd
 import io
 from flask import Blueprint, render_template
+import os
+
 flexi_app = Blueprint("flexi_app", __name__)
+
+if not os.path.exists('uploads'):
+    os.makedirs('uploads')
 
 @flexi_app.route('/')
 def index():
