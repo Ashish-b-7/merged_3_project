@@ -7,6 +7,9 @@ from flask import current_app
 
 excel_app = Blueprint("excel_app", __name__)
 
+if not os.path.exists('uploads'):
+    os.makedirs('uploads')
+    
 UPLOAD_FOLDER = 'uploads'
 
 @excel_app.route('/')
