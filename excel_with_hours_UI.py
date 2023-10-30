@@ -34,7 +34,7 @@ def process_excel():
         
         input_file_path = os.path.join(UPLOAD_FOLDER, file.filename)
 
-        df = pd.read_excel(input_file_path, usecols=['Project', 'Owner', ' Hours'])
+        df = pd.read_excel(input_file_path, usecols=['Project', 'Owner', 'Hours'])
 
         df.columns = ['Project', 'Owner', 'Hours']
 
