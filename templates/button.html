@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excel File Upload</title>
+    <style>
+        /* Paste the CSS code here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        label{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h2>Project Mapping</h2>
+    <form action="/mapping/upload" method="post" enctype="multipart/form-data" style="display: flex;justify-content: space-around;width: 60%;">
+        <div>
+        <label for="normal_file">Upload Main File :</label> <br/><br/>
+        <input type="file" name="normal_file" accept=".xlsx" /><br><br>
+    </div>
+    <div>
+        <label for="normal_file">Upload Mapping File :</label> <br/><br/>
+        <input type="file" name="mapping_file" accept=".xlsx" /><br><br>
+    </div>
+    <div>      
+        <input type="submit" value="Upload">
+    </div>
+
+    </form>
+</body>
+</html>
