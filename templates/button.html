@@ -40,23 +40,72 @@
         label{
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
+
+        /* Add interactive styles */
+        .upload-progress {
+            display: none;
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 10px;
+            background-color: #4CAF50;
+            transition: width 0.3s;
+        }
     </style>
 </head>
 <body>
     <h2>Project Mapping</h2>
-    <form action="/mapping/upload" method="post" enctype="multipart/form-data" style="display: flex;justify-content: space-around;width: 60%;">
+    <form id="upload-form" action="/mapping/upload" method="post" enctype="multipart/form-data" style="display: flex; justify-content: space-around; width: 60%;">
         <div>
-        <label for="normal_file">Upload Main File :</label> <br/><br/>
-        <input type="file" name="normal_file" accept=".xlsx" /><br><br>
-    </div>
-    <div>
-        <label for="normal_file">Upload Mapping File :</label> <br/><br/>
-        <input type="file" name="mapping_file" accept=".xlsx" /><br><br>
-    </div>
-    <div>      
-        <input type="submit" value="Upload">
-    </div>
-
+            <label for="normal_file">Upload Main File :</label> <br/><br/>
+            <input type="file" name="normal_file" accept=".xlsx" id="main-file" /><br><br>
+        </div>
+        <div>
+            <label for="normal_file">Upload Mapping File :</label> <br/><br/>
+            <input type="file" name="mapping_file" accept=".xlsx" id="mapping-file" /><br><br>
+        </div>
+        <div>      
+            <input type="submit" value="Upload" id="upload-button">
+            <div class="upload-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
     </form>
+
+    <script>
+        // Add interactive behavior with JavaScript
+        const uploadForm = document.getElementById('upload-form');
+        const mainFileInput = document.getElementById('main-file');
+        const mappingFileInput = document.getElementById('mapping-file');
+        const uploadButton = document.getElementById('upload-button');
+        const uploadProgress = document.querySelector('.upload-progress');
+        const progressBar = document.querySelector('.progress-bar');
+
+        uploadButton.addEventListener('click', () => {
+            if (mainFileInput.files.length === 0 || mappingFileInput.files.length === 0) {
+                alert('Please select both files.');
+                return;
+            }
+
+            // Simulate file upload progress
+            uploadProgress.style.display = 'block';
+            uploadButton.style.display = 'none';
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        alert('Upload complete!');
+                        uploadProgress.style.display = 'none';
+                        uploadButton.style.display = 'block';
+                    }, 500);
+                }
+            }, 200);
+        });
+    </script>
 </body>
 </html>
