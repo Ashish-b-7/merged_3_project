@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Excel File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        label:hover {
+            background-color: #2980b9;
+        }
+
+        .file-name {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .download-container {
+            display: inline-block; /* Display the download button next to the Choose File button */
+            vertical-align: top; /* Align the download button to the top of the container */
+        }
+
+        .download-link {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px; /* Adjust the padding to your desired width */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .download-link:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload an Excel File</h1>
+        <form action="/misc/download" method="POST" enctype="multipart/form-data">
+            <label for="file">Choose File</label>
+            <input type="file" id="file" name="file" accept=".xlsx" required>
+            <div class="file-name"></div>
+            <div class="download-container">
+                <a href="/misc/download" class="download-link" id="submit" style="display: none;">Download</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file');
+        const fileDisplay = document.querySelector('.file-name');
+        const downloadLink = document.getElementById('submit');
+
+        fileInput.addEventListener('change', function (e) {
+            const fileName = e.target.files[0].name;
+            fileDisplay.innerText = `Selected file: ${fileName}`;
+            fileDisplay.style.display = 'block';
+            downloadLink.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
