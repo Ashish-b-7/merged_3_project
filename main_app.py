@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from Mapping_excel import mapping_app
 from excel_with_hours_UI import excel_app
 from flexi_hours import flexi_app
-from flask import Blueprint
+from Misceleneous_excel import misc_app
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 app.register_blueprint(mapping_app, url_prefix='/mapping')
 app.register_blueprint(excel_app, url_prefix='/excel')
 app.register_blueprint(flexi_app, url_prefix='/flexi')
-
+app.register_blueprint(misc_app,url_prefix='/misc')
 @app.route('/')
 def main_home():
     return render_template('main.html')
