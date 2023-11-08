@@ -1,8 +1,11 @@
 import pandas as pd
 from flask import Flask, render_template, request, send_file
 from flask import Blueprint, render_template
-
+import os
 misc_app = Blueprint("misc_app", __name__)
+
+if not os.path.exists('uploads'):
+    os.makedirs('uploads')
 
 @misc_app.route('/')
 def index():
