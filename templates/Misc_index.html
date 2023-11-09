@@ -1,96 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Upload Excel File</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Processor</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
         }
 
-        .container {
-            background-color: #ffffff;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
             text-align: center;
+            text-transform: uppercase;
         }
 
         form {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
-        input[type="file"] {
-            display: none;
-        }
-
         label {
-            cursor: pointer;
-            background-color: #3498db;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 14px;
+            font-weight: bold;
         }
 
-        label:hover {
-            background-color: #2980b9;
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            width: 80%;
+            margin: 0 auto;
+            display: block;
         }
 
-        .file-name {
-            margin-top: 10px;
-            display: none;
-        }
-
-        .download-container {
-            display: inline-block; /* Display the download button next to the Choose File button */
-            vertical-align: top; /* Align the download button to the top of the container */
-        }
-
-        .download-link {
-            background-color: #4CAF50;
+        button {
+            background-color: #50db34;
             color: white;
-            padding: 10px; /* Adjust the padding to your desired width */
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
 
-        .download-link:hover {
+        button:hover {
             background-color: #2980b9;
+        }
+
+        p {
+            color: #333;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Upload an Excel File</h1>
-        <form action="/misc/download" method="POST" enctype="multipart/form-data">
-            <label for="file">Choose File</label>
-            <input type="file" id="file" name="file" accept=".xlsx" required>
-            <div class="file-name"></div>
-            <div class="download-container">
-                <a href="/misc/download" class="download-link" id="submit" style="display: none;">Download</a>
-            </div>
-        </form>
-    </div>
+    <h2>Excel Processor</h2>
+    
+    <form action="/misc/process_excel" method="post" enctype="multipart/form-data">
+        <label for="file">Select Excel File:</label>
+        <input type="file" name="file" id="file" accept=".xlsx" required>
+        <button type="submit">Process</button>
+    </form>
 
-    <script>
-        const fileInput = document.getElementById('file');
-        const fileDisplay = document.querySelector('.file-name');
-        const downloadLink = document.getElementById('submit');
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
 
-        fileInput.addEventListener('change', function (e) {
-            const fileName = e.target.files[0].name;
-            fileDisplay.innerText = `Selected file: ${fileName}`;
-            fileDisplay.style.display = 'block';
-            downloadLink.style.display = 'block';
-        });
-    </script>
+    {% if result %}
+        <h3>Result:</h3>
+        <table>
+            <tr>
+                <th>Project</th>
+                <th>Mapping Dates</th>
+                <th>RV</th>
+                <th>Total Hours</th>
+            </tr>
+            {% for row in result %}
+                <tr>
+                    <td>{{ row.Project }}</td>
+                    <td>{{ row['Mapping Dates'] }}</td>
+                    <td>{{ row.RV }}</td>
+                    <td>{{ row['Total Hours'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <a href="{{ download_link }}" download>Download Result</a>
+    {% endif %}
 </body>
 </html>
