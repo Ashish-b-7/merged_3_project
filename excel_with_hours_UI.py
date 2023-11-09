@@ -33,8 +33,8 @@ def process_excel():
         file.save(os.path.join(UPLOAD_FOLDER, file.filename))
         
         input_file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-
-        df = pd.read_excel(input_file_path, usecols=['Project', 'Owner', ' Hours'])
+        column_name = 'Hours' if 'Hours' in pd.read_excel(input_file_path, nrows=1).columns else ' Hours'
+        df = pd.read_excel(input_file_path, usecols=['Project', 'Owner', column_name])
 
         df.columns = ['Project', 'Owner', 'Hours']
 
